@@ -9,7 +9,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "precommit": "lint-staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "format:fix": "prettier --write ./src"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
