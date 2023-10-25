@@ -8,7 +8,6 @@
     "build": "tsc && vite build",
     "lint": "eslint  ./src --ext ts,tsx  --report-unused-disable-directives --max-warnings 5",
     "preview": "vite preview",
-    "precommit": "lint-staged",
     "prepare": "husky install",
     "format:fix": "prettier --write ./src"
   },
@@ -17,6 +16,11 @@
       "eslint --fix"
     ]
   },
+  "husky": {
+  "hooks": {
+    "pre-commit": "lint-staged"
+  }
+},
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
