@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Audio } from 'react-loader-spinner';
 import './App.css';
 import InputFieldt from './components/InputField';
 import ResultField from './components/ResultField';
@@ -8,6 +9,7 @@ class App extends Component {
     webUrl: 'https://swapi.dev/api/',
     name: localStorage.getItem('siteName') || '',
     data: null,
+    loading: false,
   };
 
   getData = async (url: string) => {
@@ -22,6 +24,7 @@ class App extends Component {
   };
 
   componentDidMount = async (): Promise<void> => {
+    this.setState({ loading: true });
     const { webUrl, name } = this.state;
     const url = name ? `${webUrl}/${name}/?page=1` : webUrl;
     const data = await this.getData(url);
@@ -38,6 +41,7 @@ class App extends Component {
     this.setState({
       data: results,
     });
+    this.setState({ loading: false });
   };
 
   onUpdateName = (name: string): void => {
@@ -52,7 +56,7 @@ class App extends Component {
   };
 
   render() {
-    const { webUrl, data } = this.state;
+    const { webUrl, data, loading } = this.state;
     return (
       <main>
         <h1>The Star Wars</h1>
@@ -64,7 +68,16 @@ class App extends Component {
           </button>
         </section>
         <section className="result">
-          {data && <ResultField data={data} />}
+          {loading && (
+            <Audio
+              height="80"
+              width="80"
+              color="green"
+              ariaLabel="three-dots-loading"
+              wrapperClass=""
+            />
+          )}
+          {!loading && data && <ResultField data={data} />}
         </section>
       </main>
     );
