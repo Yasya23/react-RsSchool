@@ -11,10 +11,11 @@ class ResultField extends Component<Props> {
     const { data } = this.props;
     console.log(data);
     const elements = data.map((item, index) => {
-      const { name, height, gender, link } = item;
+      const { name, height, gender, link, title } = item;
       return (
-        <li key={name}>
+        <li key={index}>
           <h2>{name}</h2>
+          {title && <h2>{title}</h2>}
           <ul>
             {link && <li>{link}</li>}
             {height && <li>Height: {height}</li>}

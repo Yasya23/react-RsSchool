@@ -13,13 +13,8 @@ class App extends Component {
   getData = async (url: string) => {
     try {
       const response = await fetch(url);
-      if (response.ok) {
-        const data = await response.json();
-        return data;
-      } else {
-        console.error('Failed to fetch data');
-        return null;
-      }
+      const data = await response.json();
+      return data;
     } catch (error) {
       console.error('Error while fetching data:', error);
       return null;
@@ -30,16 +25,16 @@ class App extends Component {
     const { webUrl, name } = this.state;
     const url = name ? `${webUrl}/${name}/?page=1` : webUrl;
     const data = await this.getData(url);
-    console.log(data);
     const results =
-      data?.results ||
-      Object.entries(data).map((el) => {
-        const [name, link] = el;
-        return {
-          name,
-          link,
-        };
-      });
+      data.results ||
+      (data &&
+        Object.entries(data).map((el) => {
+          const [name, link] = el;
+          return {
+            name,
+            link,
+          };
+        }));
     this.setState({
       data: results,
     });
