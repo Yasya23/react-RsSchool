@@ -1,20 +1,23 @@
 import { Component } from 'react';
 import './App.css';
+import InputFieldt from './components/InputField';
 
 class App extends Component {
   state = {
     webUrl: 'https://pokeapi.co/api/v2/',
     updatedUrl: null,
-    name: '',
+    name: localStorage.getItem('siteName') || '',
+    data: null,
   };
 
-  handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  onUpdateName = (name: string): void => {
     this.setState({
-      name: e.target.value,
+      name,
     });
   };
 
   handleSearch = (): void => {
+    // localStorage.setItem('siteName', 'pokemon');
     console.log(this.state.name);
   };
 
@@ -23,17 +26,12 @@ class App extends Component {
       <main>
         <section className="search">
           <div className="website">{this.state.webUrl}</div>
-          <input
-            className="search-input"
-            type="text"
-            value={this.state.name}
-            onChange={this.handleNameChange}
-          />
+          <InputFieldt onUpdateName={this.onUpdateName} />
           <button className="search-button" onClick={this.handleSearch}>
             Search
           </button>
         </section>
-        <section className="result"></section>
+        <section className="result">{this.state.data}</section>
       </main>
     );
   }
