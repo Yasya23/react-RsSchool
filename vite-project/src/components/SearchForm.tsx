@@ -1,8 +1,8 @@
 import { Component } from 'react';
 
 type FieldtProps = {
-  searchByName: (value: string) => void;
-  name: string;
+  handleSearch: (value: string) => void;
+  // name: string;
 };
 
 type FieldtState = {
@@ -13,7 +13,7 @@ class SearchForm extends Component<FieldtProps, FieldtState> {
   constructor(props: FieldtProps) {
     super(props);
     this.state = {
-      name: props.name,
+      name: localStorage.getItem('siteName') || '',
     };
   }
 
@@ -26,7 +26,7 @@ class SearchForm extends Component<FieldtProps, FieldtState> {
 
   handleSearch = () => {
     localStorage.setItem('name', this.state.name);
-    this.props.searchByName(this.state.name);
+    this.props.handleSearch(this.state.name);
   };
 
   render() {

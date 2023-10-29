@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import { Audio } from 'react-loader-spinner';
 import './App.css';
-import InputFieldt from './components/InputField';
 import ResultField from './components/ResultField';
+import SearchForm from './components/SearchForm';
 
 class App extends Component {
   state = {
@@ -23,9 +23,10 @@ class App extends Component {
     }
   };
 
-  componentDidMount = async (): Promise<void> => {
+  componentDidMount = async (name = this.state.name): Promise<void> => {
     this.setState({ loading: true });
-    const { webUrl, name } = this.state;
+    const { webUrl } = this.state;
+    console.log(name);
     const url = name ? `${webUrl}/${name}/?page=1` : webUrl;
     const data = await this.getData(url);
     const results =
@@ -38,10 +39,10 @@ class App extends Component {
             link,
           };
         }));
+    this.setState({ loading: false });
     this.setState({
       data: results,
     });
-    this.setState({ loading: false });
   };
 
   onUpdateName = (name: string): void => {
@@ -51,21 +52,23 @@ class App extends Component {
     });
   };
 
-  handleSearch = (): void => {
-    this.componentDidMount();
+  handleSearch = (name: string): void => {
+    localStorage.setItem('siteName', name);
+
+    this.setState({
+      name,
+    });
+    this.componentDidMount(name);
   };
 
   render() {
-    const { webUrl, data, loading } = this.state;
+    const { name, webUrl, data, loading } = this.state;
     return (
       <main>
         <h1>The Star Wars</h1>
         <section className="search">
           <div className="website">{webUrl}</div>
-          <InputFieldt onUpdateName={this.onUpdateName} />
-          <button className="search-button" onClick={this.handleSearch}>
-            Search
-          </button>
+          <SearchForm handleSearch={this.handleSearch} />
         </section>
         <section className="result">
           {loading && (
