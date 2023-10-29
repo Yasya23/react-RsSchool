@@ -9,7 +9,6 @@ interface Props {
 class ResultField extends Component<Props> {
   render() {
     const { data } = this.props;
-    console.log(data);
     const elements = data.map((item, index) => {
       const { name, height, gender, link, title } = item;
       return (

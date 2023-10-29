@@ -1,13 +1,16 @@
 import { Component } from 'react';
-import { Audio } from 'react-loader-spinner';
-import './App.css';
 import ResultField from './components/ResultField';
 import SearchForm from './components/SearchForm';
+import Spinner from './components/Spinner';
+import ErrorBoundary from './components/ErrorCatching';
+import ErrorThrowing from './components/ErrorThrowing';
+
+import './App.css';
 
 class App extends Component {
   state = {
     webUrl: 'https://swapi.dev/api/',
-    name: localStorage.getItem('siteName') || '',
+    name: localStorage.getItem('name') || '',
     data: null,
     loading: false,
   };
@@ -20,13 +23,14 @@ class App extends Component {
     } catch (error) {
       console.error('Error while fetching data:', error);
       return null;
+    } finally {
+      this.setState({ loading: false });
     }
   };
 
   componentDidMount = async (name = this.state.name): Promise<void> => {
     this.setState({ loading: true });
     const { webUrl } = this.state;
-    console.log(name);
     const url = name ? `${webUrl}/${name}/?page=1` : webUrl;
     const data = await this.getData(url);
     const results =
@@ -39,30 +43,19 @@ class App extends Component {
             link,
           };
         }));
-    this.setState({ loading: false });
     this.setState({
       data: results,
     });
   };
 
-  onUpdateName = (name: string): void => {
-    localStorage.setItem('siteName', name);
-    this.setState({
-      name,
-    });
-  };
-
   handleSearch = (name: string): void => {
-    localStorage.setItem('siteName', name);
-
-    this.setState({
-      name,
-    });
+    localStorage.setItem('name', name);
+    this.setState({ name });
     this.componentDidMount(name);
   };
 
   render() {
-    const { name, webUrl, data, loading } = this.state;
+    const { webUrl, data, loading } = this.state;
     return (
       <main>
         <h1>The Star Wars</h1>
@@ -71,16 +64,10 @@ class App extends Component {
           <SearchForm handleSearch={this.handleSearch} />
         </section>
         <section className="result">
-          {loading && (
-            <Audio
-              height="80"
-              width="80"
-              color="green"
-              ariaLabel="three-dots-loading"
-              wrapperClass=""
-            />
-          )}
-          {!loading && data && <ResultField data={data} />}
+          <ErrorBoundary fallback={<p>Something went wrong</p>}>
+            {!loading && data && <ResultField data={data} />}
+            {loading && <Spinner />}
+          </ErrorBoundary>
         </section>
       </main>
     );
