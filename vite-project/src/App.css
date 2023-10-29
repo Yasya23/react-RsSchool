@@ -35,3 +35,7 @@
   height: 500px;
   overflow-y: scroll;
 }
+
+.list {
+  text-align: left;
+}
