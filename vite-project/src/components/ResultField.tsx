@@ -2,9 +2,7 @@ import { Component } from 'react';
 
 interface Props {
   data: {
-    name: string;
-    height: string;
-    gender: string;
+    [key: string]: string;
   }[];
 }
 
@@ -12,14 +10,15 @@ class ResultField extends Component<Props> {
   render() {
     const { data } = this.props;
     console.log(data);
-    const elements = data.map((item) => {
-      const { name, height, gender } = item;
+    const elements = data.map((item, index) => {
+      const { name, height, gender, link } = item;
       return (
         <li key={name}>
           <h2>{name}</h2>
           <ul>
-            <li>Height: {height}</li>
-            <li>Gender: {gender}</li>
+            {link && <li>{link}</li>}
+            {height && <li>Height: {height}</li>}
+            {gender && <li>Gender: {gender}</li>}
           </ul>
         </li>
       );

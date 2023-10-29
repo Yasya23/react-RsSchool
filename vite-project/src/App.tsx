@@ -5,15 +5,14 @@ import ResultField from './components/ResultField';
 
 class App extends Component {
   state = {
-    webUrl: 'https://swapi.dev/api/people/?page=1',
-    updatedUrl: null,
+    webUrl: 'https://swapi.dev/api/',
     name: localStorage.getItem('siteName') || '',
     data: null,
   };
 
-  getData = async () => {
+  getData = async (url: string) => {
     try {
-      const response = await fetch(this.state.webUrl);
+      const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
         return data;
@@ -27,22 +26,34 @@ class App extends Component {
     }
   };
 
-  async componentDidMount() {
-    const data = await this.getData();
+  componentDidMount = async (): Promise<void> => {
+    const { webUrl, name } = this.state;
+    const url = name ? `${webUrl}/${name}/?page=1` : webUrl;
+    const data = await this.getData(url);
+    console.log(data);
+    const results =
+      data?.results ||
+      Object.entries(data).map((el) => {
+        const [name, link] = el;
+        return {
+          name,
+          link,
+        };
+      });
     this.setState({
-      data: data.results,
+      data: results,
     });
-  }
+  };
 
   onUpdateName = (name: string): void => {
+    localStorage.setItem('siteName', name);
     this.setState({
       name,
     });
   };
 
   handleSearch = (): void => {
-    // localStorage.setItem('siteName', 'pokemon');
-    console.log(this.state.name);
+    this.componentDidMount();
   };
 
   render() {
