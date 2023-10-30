@@ -9,6 +9,7 @@ class ErrorThrowing extends Component {
     if (this.state.error) {
       throw new Error('Error!');
     }
+
     return (
       <div>
         <button

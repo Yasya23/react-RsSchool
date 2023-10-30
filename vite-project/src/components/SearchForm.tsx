@@ -17,7 +17,7 @@ class SearchForm extends Component<FieldtProps, FieldtState> {
   }
 
   handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = e.target.value.trim();
     this.setState({
       name: value,
     });
