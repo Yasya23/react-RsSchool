@@ -1,14 +1,23 @@
 import { Component } from 'react';
 
 class ErrorThrowing extends Component {
-  handleThrowError = () => {
-    throw new Error('This is an error.');
+  state = {
+    error: false,
   };
 
   render() {
+    if (this.state.error) {
+      throw new Error('Error!');
+    }
     return (
       <div>
-        <button onClick={this.handleThrowError}>Throw Error</button>
+        <button
+          onClick={() => {
+            this.setState({ error: true });
+          }}
+        >
+          Throw Error
+        </button>
       </div>
     );
   }

@@ -65,6 +65,7 @@ class App extends Component {
         </section>
         <section className="result">
           <ErrorBoundary fallback={<p>Something went wrong</p>}>
+            <ErrorThrowing />
             {!loading && data && <ResultField data={data} />}
             {loading && <Spinner />}
           </ErrorBoundary>
