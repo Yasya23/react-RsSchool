@@ -6,7 +6,8 @@ interface Props {
   }[];
 }
 
-class ResultField extends Component<Props> {
+class ResultField extends Component<Props> { 
+  let i
   render() {
     const { data } = this.props;
     const elements = data.map((item, index) => {
