@@ -24,6 +24,7 @@ class SearchForm extends Component<FieldtProps, FieldtState> {
   };
 
   handleSearch = () => {
+    localStorage.setItem('name', this.state.name);
     this.props.handleSearch(this.state.name);
   };
 

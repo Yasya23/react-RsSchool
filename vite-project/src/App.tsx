@@ -7,6 +7,10 @@ import ErrorThrowing from './components/ErrorThrowing';
 
 import './App.css';
 
+type nameState = {
+  name: string;
+};
+
 class App extends Component {
   state = {
     webUrl: 'https://swapi.dev/api/',
@@ -15,7 +19,7 @@ class App extends Component {
     loading: false,
   };
 
-  getData = async (url: string) => {
+  getDataFromApi = async (url: string) => {
     try {
       const response = await fetch(url);
       const data = await response.json();
@@ -28,11 +32,11 @@ class App extends Component {
     }
   };
 
-  componentDidMount = async (name = this.state.name): Promise<void> => {
+  getData = async (name: string): Promise<void> => {
     this.setState({ loading: true });
     const { webUrl } = this.state;
     const url = name ? `${webUrl}/${name}/?page=1` : webUrl;
-    const data = await this.getData(url);
+    const data = await this.getDataFromApi(url);
     const results =
       data.results ||
       (data &&
@@ -48,10 +52,21 @@ class App extends Component {
     });
   };
 
-  handleSearch = (name: string): void => {
-    localStorage.setItem('name', name);
+  componentDidMount() {
+    this.getData(this.state.name);
+  }
+
+  componentDidUpdate(prevProps: nameState, prevState: nameState) {
+    if (
+      this.state.name !== prevState.name &&
+      this.state.name !== prevProps.name
+    ) {
+      this.getData(this.state.name);
+    }
+  }
+
+  handleSearch = (name: string) => {
     this.setState({ name });
-    this.componentDidMount(name);
   };
 
   render() {
