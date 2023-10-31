@@ -8,7 +8,6 @@
     "build": "tsc && vite build",
     "lint": "eslint  ./src --ext ts,tsx  --report-unused-disable-directives --max-warnings 5",
     "preview": "vite preview",
-    "prepare": "cd .. && husky installtemplate/.husky",
     "format:fix": "prettier --write ./src"
   },
   "lint-staged": {
@@ -18,7 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "precommit": "npm run lint"
+      "precommit": "lint-staged"
     }
   },
   "dependencies": {
