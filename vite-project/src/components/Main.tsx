@@ -5,8 +5,10 @@ import Spinner from './Spinner';
 import ErrorBoundary from './ErrorCatching';
 import ErrorThrowing from './ErrorThrowing';
 import fetchData from '../fetchData/fetchData';
+import Pagination from './Pagination';
+import ElementPerPage from './ElementPerPage';
 
-const webUrl = 'https://swapi.dev/api/people';
+const webUrl = 'https://pokeapi.co/api/v2/pokemon';
 
 type Character = {
   [key: string]: string | string[];
@@ -21,7 +23,7 @@ function Main() {
 
   const getData = async () => {
     setLoading(true);
-    const url = searchParam ? searchParam : `${webUrl}/?page=1`;
+    const url = searchParam ? searchParam : `${webUrl}/?limit=10&offset=0`;
     const result = await fetchData(url);
     setData(result);
     setLoading(false);
@@ -46,20 +48,21 @@ function Main() {
       setSearchParam('');
     }
   };
-
   return (
     <main>
       <ErrorBoundary fallback={<p>Something went wrong</p>}>
-        <h1>The Star Wars</h1>
+        <h1>Pokémon</h1>
         <ErrorThrowing />
         <section className="search">
-          <div className="website">{webUrl}</div>
+          <div className="website">Pokemon</div>
           <SearchForm handleSearch={handleSearch} />
         </section>
         <section className="result">
           {!loading && data && <ResultField data={data} />}
           {loading && <Spinner />}
         </section>
+        <Pagination page={1} />
+        <ElementPerPage />
       </ErrorBoundary>
     </main>
   );

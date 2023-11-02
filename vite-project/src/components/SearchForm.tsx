@@ -10,7 +10,7 @@ function SearchForm({ handleSearch }: FieldtProps) {
   );
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
+    const value = e.target.value.trim().toLowerCase();
     setInputValue(value);
   };
 

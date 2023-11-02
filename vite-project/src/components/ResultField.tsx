@@ -9,23 +9,16 @@ interface Props {
 function ResultField(props: Props) {
   const { data } = props;
   const elements = data.map((item, index) => {
-    const { name, height, gender, link, title } = item;
     return (
-      <li key={index}>
-        <h2>{name}</h2>
-        {title && <h2>{title}</h2>}
-        <ul>
-          {link && <li>{link}</li>}
-          {height && <li>Height: {height}</li>}
-          {gender && <li>Gender: {gender}</li>}
-        </ul>
+      <li key={index} className="item">
+        <h2 className="pokemon-name">{item.name}</h2>
       </li>
     );
   });
 
   return (
     <Link to="/page/1">
-      <ol className="list">{elements}</ol>;
+      <ul className="list">{elements}</ul>
     </Link>
   );
 }

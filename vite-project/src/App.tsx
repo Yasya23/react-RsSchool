@@ -10,7 +10,6 @@ function App() {
         <Route element={<Main />} path="/" />
         <Route element={<Main />} path="/page/:num" />
       </Routes>
-      ;
     </>
   );
 }
