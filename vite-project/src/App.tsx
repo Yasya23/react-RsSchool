@@ -8,6 +8,7 @@ function App() {
     <>
       <Routes>
         <Route element={<Main />} path="/" />
+        <Route element={<Main />} path="/page/:num" />
       </Routes>
       ;
     </>

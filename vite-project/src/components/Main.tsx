@@ -21,7 +21,7 @@ function Main() {
 
   const getData = async () => {
     setLoading(true);
-    const url = searchParam ? searchParam : webUrl;
+    const url = searchParam ? searchParam : `${webUrl}/?page=1`;
     const result = await fetchData(url);
     setData(result);
     setLoading(false);
@@ -49,18 +49,18 @@ function Main() {
 
   return (
     <main>
-      <h1>The Star Wars</h1>
-      <section className="search">
-        <div className="website">{webUrl}</div>
-        <SearchForm handleSearch={handleSearch} />
-      </section>
-      <section className="result">
-        <ErrorBoundary fallback={<p>Something went wrong</p>}>
-          <ErrorThrowing />
+      <ErrorBoundary fallback={<p>Something went wrong</p>}>
+        <h1>The Star Wars</h1>
+        <ErrorThrowing />
+        <section className="search">
+          <div className="website">{webUrl}</div>
+          <SearchForm handleSearch={handleSearch} />
+        </section>
+        <section className="result">
           {!loading && data && <ResultField data={data} />}
           {loading && <Spinner />}
-        </ErrorBoundary>
-      </section>
+        </section>
+      </ErrorBoundary>
     </main>
   );
 }

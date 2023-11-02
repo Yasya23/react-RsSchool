@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 interface Props {
   data: {
     [key: string]: string | string[];
@@ -21,7 +23,11 @@ function ResultField(props: Props) {
     );
   });
 
-  return <ol className="list">{elements}</ol>;
+  return (
+    <Link to="/page/1">
+      <ol className="list">{elements}</ol>;
+    </Link>
+  );
 }
 
 export default ResultField;
