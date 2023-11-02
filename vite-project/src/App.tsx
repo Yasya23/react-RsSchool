@@ -7,13 +7,21 @@ import ErrorThrowing from './components/ErrorThrowing';
 
 import './App.css';
 
-const webUrl = 'https://swapi.dev/api/';
+const webUrl = 'https://swapi.dev/api/people';
+
+type Character = {
+  [key: string]: string | string[];
+};
+
+type ApiResponse = {
+  results: Character[];
+};
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<Character[] | null>(null);
   const [searchParam, setSearchParam] = useState(
-    localStorage.getItem('name') || ''
+    localStorage.getItem('url') || ''
   );
 
   const fetchData = async (url: string) => {
@@ -23,18 +31,12 @@ function App() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
-      const results =
-        data.results ||
-        (data &&
-          Object.entries(data).map((el) => {
-            const [name, link] = el;
-            return {
-              name,
-              link,
-            };
-          }));
-      setData(results);
+      const data: ApiResponse = await response.json();
+      if ('results' in data) {
+        setData(data.results);
+      } else {
+        setData([data]);
+      }
     } catch (error) {
       console.error('Error while fetching data:', error);
       setData(null);
@@ -44,7 +46,7 @@ function App() {
   };
 
   const getData = async () => {
-    const url = searchParam ? `${webUrl}${searchParam}/?page=1` : webUrl;
+    const url = searchParam ? searchParam : webUrl;
     fetchData(url);
   };
 
@@ -52,7 +54,21 @@ function App() {
     getData();
   }, [searchParam]);
 
-  const handleSearch = (name: string) => setSearchParam(name);
+  const handleSearch = (name: string) => {
+    if (name) {
+      if (data && data.length > 0) {
+        const filteredData = data.filter((char) => char.name === name);
+        if (filteredData.length > 0) {
+          const filteredDataUrl = filteredData[0].url as string;
+          localStorage.setItem('url', filteredDataUrl);
+          setSearchParam(filteredDataUrl);
+        }
+      }
+    } else {
+      localStorage.setItem('url', '');
+      setSearchParam('');
+    }
+  };
 
   return (
     <main>

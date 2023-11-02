@@ -1,6 +1,6 @@
 interface Props {
   data: {
-    [key: string]: string;
+    [key: string]: string | string[];
   }[];
 }
 
