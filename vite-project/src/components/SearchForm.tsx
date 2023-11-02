@@ -1,48 +1,37 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
 type FieldtProps = {
   handleSearch: (value: string) => void;
 };
 
-type FieldtState = {
-  name: string;
-};
+function SearchForm({ handleSearch }: FieldtProps) {
+  const [inputValue, setInputValue] = useState(
+    localStorage.getItem('name') || ''
+  );
 
-class SearchForm extends Component<FieldtProps, FieldtState> {
-  constructor(props: FieldtProps) {
-    super(props);
-    this.state = {
-      name: localStorage.getItem('name') || '',
-    };
-  }
-
-  handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
-    this.setState({
-      name: value,
-    });
+    setInputValue(value);
   };
 
-  handleSearch = () => {
-    localStorage.setItem('name', this.state.name);
-    this.props.handleSearch(this.state.name);
+  const handleSearchClick = () => {
+    localStorage.setItem('name', inputValue);
+    handleSearch(inputValue);
   };
 
-  render() {
-    return (
-      <>
-        <input
-          className="search-input"
-          type="text"
-          value={this.state.name}
-          onChange={this.handleNameChange}
-        />
-        <button className="search-button" onClick={this.handleSearch}>
-          Search
-        </button>
-      </>
-    );
-  }
+  return (
+    <>
+      <input
+        className="search-input"
+        type="text"
+        value={inputValue}
+        onChange={handleNameChange}
+      />
+      <button className="search-button" onClick={handleSearchClick}>
+        Search
+      </button>
+    </>
+  );
 }
 
 export default SearchForm;
