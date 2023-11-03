@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ResultField from './ResultField';
 import SearchForm from './SearchForm';
 import Spinner from './Spinner';
@@ -15,6 +16,7 @@ type Character = {
 };
 
 function Main() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<Character[] | null>(null);
   const [searchParam, setSearchParam] = useState(
@@ -44,6 +46,7 @@ function Main() {
 
   useEffect(() => {
     getData();
+    navigate(`/page/${pageNumber}`);
   }, [searchParam, limitForPage, pageNumber]);
 
   const handleSearch = (name: string) => {
@@ -81,7 +84,13 @@ function Main() {
           <SearchForm handleSearch={handleSearch} />
         </section>
         <section className="result">
-          {!loading && data && <ResultField data={data} />}
+          {!loading && data && (
+            <ResultField
+              data={data}
+              limitForPage={limitForPage}
+              pageNumber={pageNumber}
+            />
+          )}
           {loading && <Spinner />}
         </section>
         <Pagination

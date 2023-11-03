@@ -41,11 +41,20 @@
   text-align: center;
   line-height: 2;
   list-style-type: none;
-  padding: 0;
+  padding: 0 10px;
+}
+
+.item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 30px;
 }
 
 .pokemon-name {
   text-transform: capitalize;
+  font-size: 30px;
+  line-height: 1;
 }
 
 .pagination {
