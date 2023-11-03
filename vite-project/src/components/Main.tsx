@@ -44,7 +44,7 @@ function Main() {
 
   useEffect(() => {
     getData();
-  }, [searchParam, limitForPage]);
+  }, [searchParam, limitForPage, pageNumber]);
 
   const handleSearch = (name: string) => {
     if (name) {
@@ -67,6 +67,10 @@ function Main() {
     setLimitForPage(+number);
   };
 
+  const changePage = (number: number) => {
+    setPageNumber((prev) => prev + number);
+  };
+
   return (
     <main>
       <ErrorBoundary fallback={<p>Something went wrong</p>}>
@@ -84,6 +88,7 @@ function Main() {
           page={pageNumber}
           elementsOnThePage={limitForPage}
           totalElements={totalElements}
+          changePage={changePage}
         />
         <ElementPerPage handlItemsPerPage={handlItemsPerPage} />
       </ErrorBoundary>
