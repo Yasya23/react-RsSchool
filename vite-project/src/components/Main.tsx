@@ -20,10 +20,14 @@ function Main() {
   const [searchParam, setSearchParam] = useState(
     localStorage.getItem('url') || ''
   );
+  const [limitForPage, setLimitForPage] = useState(10);
+  const [pageNumber, setPageNumber] = useState(0);
 
   const getData = async () => {
     setLoading(true);
-    const url = searchParam ? searchParam : `${webUrl}/?limit=10&offset=0`;
+    const url = searchParam
+      ? searchParam
+      : `${webUrl}/?limit=${limitForPage}&offset=${pageNumber * limitForPage}`;
     const result = await fetchData(url);
     setData(result);
     setLoading(false);
@@ -31,7 +35,7 @@ function Main() {
 
   useEffect(() => {
     getData();
-  }, [searchParam]);
+  }, [searchParam, limitForPage]);
 
   const handleSearch = (name: string) => {
     if (name) {
@@ -48,6 +52,11 @@ function Main() {
       setSearchParam('');
     }
   };
+
+  const handlItemsPerPage = (number: string) => {
+    setLimitForPage(+number);
+  };
+
   return (
     <main>
       <ErrorBoundary fallback={<p>Something went wrong</p>}>
@@ -62,7 +71,7 @@ function Main() {
           {loading && <Spinner />}
         </section>
         <Pagination page={1} />
-        <ElementPerPage />
+        <ElementPerPage handlItemsPerPage={handlItemsPerPage} />
       </ErrorBoundary>
     </main>
   );
