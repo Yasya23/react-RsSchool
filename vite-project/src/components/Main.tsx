@@ -21,15 +21,24 @@ function Main() {
     localStorage.getItem('url') || ''
   );
   const [limitForPage, setLimitForPage] = useState(10);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [totalElements, setTotalElements] = useState(0);
 
   const getData = async () => {
     setLoading(true);
+    const page = (pageNumber - 1) * limitForPage;
     const url = searchParam
       ? searchParam
-      : `${webUrl}/?limit=${limitForPage}&offset=${pageNumber * limitForPage}`;
-    const result = await fetchData(url);
-    setData(result);
+      : `${webUrl}/?limit=${limitForPage}&offset=${page}`;
+    const data = await fetchData(url);
+    if (data && 'results' in data) {
+      const { results, count } = data;
+      setTotalElements(count);
+      setData(results);
+    } else {
+      setTotalElements(1);
+      if (data) setData([data]);
+    }
     setLoading(false);
   };
 
@@ -54,6 +63,7 @@ function Main() {
   };
 
   const handlItemsPerPage = (number: string) => {
+    setPageNumber(1);
     setLimitForPage(+number);
   };
 
@@ -70,7 +80,11 @@ function Main() {
           {!loading && data && <ResultField data={data} />}
           {loading && <Spinner />}
         </section>
-        <Pagination page={1} />
+        <Pagination
+          page={pageNumber}
+          elementsOnThePage={limitForPage}
+          totalElements={totalElements}
+        />
         <ElementPerPage handlItemsPerPage={handlItemsPerPage} />
       </ErrorBoundary>
     </main>
