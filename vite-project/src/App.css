@@ -1,8 +1,13 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
+}
+
+h1 {
+  padding: 0;
+  margin: 0;
 }
 
 main {
@@ -11,6 +16,7 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 700px;
 }
 
 .search {
@@ -51,6 +57,7 @@ main {
   height: 500px;
   display: flex;
   overflow-y: scroll;
+  z-index: 1;
 }
 
 .result-no-scroll {
@@ -81,11 +88,24 @@ main {
   justify-content: flex-start;
   align-items: center;
   font-size: 30px;
+  cursor: pointer;
+}
+
+.no-events {
+  pointer-events: none;
+}
+
+.item:hover {
+  color: red;
 }
 
 .detailes-open {
   background-color: rgba(0, 0, 0, 0.451);
   opacity: 0.3;
+}
+
+.detailes-open .item:hover {
+  color: black;
 }
 
 .pokemon-name {

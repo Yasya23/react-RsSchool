@@ -77,7 +77,6 @@ function Main() {
   return (
     <main>
       <ErrorBoundary fallback={<p>Something went wrong</p>}>
-        <h1>Pokémon</h1>
         <ErrorThrowing />
         <section className="search">
           <div className="website">Pokemon</div>

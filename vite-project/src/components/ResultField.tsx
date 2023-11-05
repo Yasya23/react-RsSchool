@@ -46,10 +46,9 @@ function ResultField(props: Props) {
   });
 
   const closeDetailes = (e: React.MouseEvent) => {
-    if ((e.target as Element).className !== 'pokemon-name') {
-      setIsClose(true);
-      setElement(null);
-    }
+    e.preventDefault();
+    setIsClose(true);
+    setElement(null);
   };
 
   return (
@@ -57,7 +56,7 @@ function ResultField(props: Props) {
       <section
         className={`result ${element ? 'result-no-scroll detailes-open' : ''}`}
       >
-        <ul className="list">{elements}</ul>
+        <ul className={`list ${element ? 'no-events' : ''}`}>{elements}</ul>
       </section>
       <Outlet context={{ element, close: isClose }} />
     </div>
