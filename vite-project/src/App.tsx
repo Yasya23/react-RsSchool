@@ -10,8 +10,8 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path="/page/:pageNumber" element={<Main />}>
-          <Route path=":elementNumber" element={<ElementDetailes />} />
+        <Route path="/main" element={<Main />}>
+          <Route path="element" element={<ElementDetailes />} />
         </Route>
       </Routes>
     </>

@@ -46,7 +46,7 @@ function Main() {
 
   useEffect(() => {
     getData();
-    navigate(`/page/${pageNumber}`);
+    navigate(`?page=${pageNumber}`);
   }, [searchParam, limitForPage, pageNumber]);
 
   const handleSearch = (name: string) => {
