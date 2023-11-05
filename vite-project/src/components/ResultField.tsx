@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Outlet, Link, useLocation, useSearchParams } from 'react-router-dom';
+import { Outlet, Link, useSearchParams } from 'react-router-dom';
 import fetchData from '../fetchData/fetchData';
 
 interface Props {

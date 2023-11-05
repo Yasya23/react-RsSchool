@@ -139,3 +139,10 @@ main {
 .none {
   display: none;
 }
+
+.close-detailes {
+  padding: 10px;
+  background-color: rgb(190, 190, 190);
+  cursor: pointer;
+  border-radius: 10px;
+}
