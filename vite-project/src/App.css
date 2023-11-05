@@ -1,0 +1,148 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+h1 {
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 700px;
+}
+
+.search {
+  display: flex;
+  align-items: stretch;
+  background-color: rgb(190, 190, 190);
+  border-radius: 10px;
+  width: 600px;
+  margin-bottom: 30px;
+}
+
+.website {
+  align-self: center;
+  padding: 0 10px;
+}
+
+.search-input {
+  flex-grow: 1;
+}
+
+.search-button {
+  background-color: rgb(190, 190, 190);
+  border-radius: 0 10px 10px 0;
+}
+
+.elements-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.result {
+  position: relative;
+  padding: 0;
+  border: 10px solid rgb(190, 190, 190);
+  border-radius: 10px;
+  width: 600px;
+  height: 500px;
+  display: flex;
+  overflow-y: scroll;
+  z-index: 1;
+}
+
+.result-no-scroll {
+  overflow-y: hidden;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border: 10px solid rgb(190, 190, 190);
+  border-radius: 10px;
+  width: 300px;
+  height: 460px;
+}
+
+.list {
+  text-align: center;
+  line-height: 2;
+  list-style-type: none;
+  padding: 0 10px;
+}
+
+.item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.no-events {
+  pointer-events: none;
+}
+
+.item:hover {
+  color: red;
+}
+
+.detailes-open {
+  background-color: rgba(0, 0, 0, 0.451);
+  opacity: 0.3;
+}
+
+.detailes-open .item:hover {
+  color: black;
+}
+
+.pokemon-name {
+  text-transform: capitalize;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.pagination {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.pagination a {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.disabled {
+  color: #ddd;
+  pointer-events: none;
+}
+
+.pagination a:hover {
+  background-color: #ddd;
+}
+
+.none {
+  display: none;
+}
+
+.close-detailes {
+  padding: 10px;
+  background-color: rgb(190, 190, 190);
+  cursor: pointer;
+  border-radius: 10px;
+}
