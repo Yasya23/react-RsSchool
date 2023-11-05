@@ -83,29 +83,23 @@ function Main() {
           <div className="website">Pokemon</div>
           <SearchForm handleSearch={handleSearch} />
         </section>
-        <div className="elements-wrapper">
-          <section className="result">
-            {!loading && data && (
-              <ResultField
-                data={data}
-                limitForPage={limitForPage}
-                pageNumber={pageNumber}
-              />
-            )}
-            {loading && <Spinner />}
-          </section>
-          <div className="description">
-            <div></div>
-            <button>Close</button>
-          </div>
-        </div>
-        <Pagination
-          page={pageNumber}
-          elementsOnThePage={limitForPage}
-          totalElements={totalElements}
-          changePage={changePage}
-        />
-        <ElementPerPage handlItemsPerPage={handlItemsPerPage} />
+        {!loading && data && (
+          <ResultField
+            data={data}
+            limitForPage={limitForPage}
+            pageNumber={pageNumber}
+          />
+        )}
+        {loading && <Spinner />}
+        {data && (
+          <Pagination
+            page={pageNumber}
+            elementsOnThePage={limitForPage}
+            totalElements={totalElements}
+            changePage={changePage}
+          />
+        )}
+        {data && <ElementPerPage handlItemsPerPage={handlItemsPerPage} />}
       </ErrorBoundary>
     </main>
   );

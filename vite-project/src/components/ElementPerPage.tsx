@@ -8,13 +8,9 @@ function ElementPerPage({ handlItemsPerPage }: FieldtProps) {
   const [value, setValue] = useState('10');
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = e.target.value;
-    setValue(selectedValue);
+    setValue(e.target.value);
+    handlItemsPerPage(e.target.value);
   };
-
-  useEffect(() => {
-    handlItemsPerPage(value);
-  }, [value]);
 
   return (
     <form>

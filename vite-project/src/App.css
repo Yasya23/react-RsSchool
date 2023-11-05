@@ -41,6 +41,7 @@ main {
   flex-direction: row;
   justify-content: space-between;
 }
+
 .result {
   position: relative;
   padding: 0;
@@ -52,8 +53,11 @@ main {
   overflow-y: scroll;
 }
 
+.result-no-scroll {
+  overflow-y: hidden;
+}
+
 .description {
-  /* visibility: hidden; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -77,6 +81,11 @@ main {
   justify-content: flex-start;
   align-items: center;
   font-size: 30px;
+}
+
+.detailes-open {
+  background-color: rgba(0, 0, 0, 0.451);
+  opacity: 0.3;
 }
 
 .pokemon-name {
