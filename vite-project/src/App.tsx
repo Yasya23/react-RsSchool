@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="page/:pageNumber" element={<Main />} />
+        <Route path="/page/:pageNumber" element={<Main />} />
       </Routes>
     </>
   );
