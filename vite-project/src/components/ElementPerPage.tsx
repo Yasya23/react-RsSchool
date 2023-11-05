@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 type FieldtProps = {
   handlItemsPerPage: (value: string) => void;
